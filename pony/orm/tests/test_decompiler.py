@@ -107,7 +107,12 @@ class TestDecompiler(unittest.TestCase):
         dc = Decompiler(code)
         expected = textwrap.dedent(expected).strip()
         self.maxDiff = None
-        self.assertMultiLineEqual(expected, ast.dump(dc.ast, indent=2))
+        self.assertMultiLineEqual(self._strip_each_line(expected), ast.dump(dc.ast))
+
+    def _strip_each_line(self, string: str) -> str:
+        return ' '.join(
+            l.strip() for l in string.splitlines()
+        ).replace('( ', '(').replace('[ ', '[').strip()
 
     def test_ast1(self):
         self.assertDecompilesTo(
