@@ -9,7 +9,7 @@ from uuid import UUID
 NoneType = type(None)
 
 import warnings
-warnings.filterwarnings('ignore', '^Table.+already exists$', Warning, '^pony\\.orm\\.dbapiprovider$')
+warnings.filterwarnings('ignore', '^Table.+already exists$', Warning, '^foalorm\\.orm\\.dbapiprovider$')
 
 try:
     import MySQLdb as mysql_module
@@ -21,7 +21,7 @@ except ImportError:
     try:
         import pymysql as mysql_module
     except ImportError:
-        raise ImportError('In order to use PonyORM with MySQL please install MySQLdb or pymysql')
+        raise ImportError('In order to use FoalORM with MySQL please install MySQLdb or pymysql')
     from pymysql.converters import escape_str as string_literal
     import pymysql.converters as mysql_converters
     from pymysql.constants import FIELD_TYPE, FLAG, CLIENT

@@ -49,4 +49,4 @@ elif MODE != 'INTERACTIVE':
 if MAIN_FILE is not None: MAIN_DIR = dirname(MAIN_FILE)
 else: MAIN_DIR = None
 
-PONY_DIR = dirname(__file__)
+FOALORM_DIR = dirname(__file__)

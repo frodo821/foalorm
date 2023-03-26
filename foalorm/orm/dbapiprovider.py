@@ -124,8 +124,8 @@ class DBAPIProvider(object):
 
     def __init__(provider, _database, *args, **kwargs):
         provider.database = _database
-        pool_mockup = kwargs.pop('pony_pool_mockup', None)
-        call_on_connect = kwargs.pop('pony_call_on_connect', None)
+        pool_mockup = kwargs.pop('foalorm_pool_mockup', None)
+        call_on_connect = kwargs.pop('foalorm_call_on_connect', None)
         if pool_mockup: provider.pool = pool_mockup
         else: provider.pool = provider.get_pool(*args, **kwargs)
         connection, is_new_connection = provider.connect()

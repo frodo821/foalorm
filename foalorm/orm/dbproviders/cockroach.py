@@ -11,7 +11,7 @@ except ImportError:
     try:
         from psycopg2cffi import compat
     except ImportError:
-        raise ImportError('In order to use PonyORM with CockroachDB please install psycopg2 or psycopg2cffi')
+        raise ImportError('In order to use FoalORM with CockroachDB please install psycopg2 or psycopg2cffi')
     else:
         compat.register()
 

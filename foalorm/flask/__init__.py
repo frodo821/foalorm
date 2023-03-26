@@ -3,15 +3,15 @@ from flask import request
 
 def _enter_session():
     session = db_session()
-    request.pony_session = session
+    request.foalorm_session = session
     session.__enter__()
 
 def _exit_session(exception):
-    session = getattr(request, 'pony_session', None)
+    session = getattr(request, 'foalorm_session', None)
     if session is not None:
         session.__exit__(exc=exception)
 
-class Pony(object):
+class FoalORM(object):
     def __init__(self, app=None):
         self.app = None
         if app is not None:

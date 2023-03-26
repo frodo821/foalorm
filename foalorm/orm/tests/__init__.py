@@ -8,7 +8,7 @@ foalorm.orm.core.sql_debug(False)
 
 
 def _load_env():
-    settings_filename = os.environ.get('pony_test_db')
+    settings_filename = os.environ.get('foalorm_test_db')
     if settings_filename is None:
         print('use default sqlite provider')
         return dict(provider='sqlite', filename=':memory:')
@@ -19,10 +19,10 @@ def _load_env():
     exec(content, config)
     settings = config.get('settings')
     if settings is None or not isinstance(settings, dict):
-        raise ValueError('Incorrect settings pony test db file contents')
+        raise ValueError('Incorrect settings foalorm test db file contents')
     provider = settings.get('provider')
     if provider is None:
-        raise ValueError('Incorrect settings pony test db file contents: provider was not specified')
+        raise ValueError('Incorrect settings foalorm test db file contents: provider was not specified')
     print('use provider %s' % provider)
     return settings
 

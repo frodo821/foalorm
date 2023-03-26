@@ -21,9 +21,9 @@ class Numbers(db.Entity):
 sql_debug(True)  # Output all SQL queries to stdout
 
 db.bind('sqlite', 'test_numbers.sqlite', create_db=True)
-#db.bind('mysql', host="localhost", user="pony", passwd="pony", db="test_numbers")
-#db.bind('postgres', user='pony', password='pony', host='localhost', database='test_numbers')
-#db.bind('oracle', 'test_numbers/pony@localhost')
+#db.bind('mysql', host="localhost", user="foalorm", passwd="foalorm", db="test_numbers")
+#db.bind('postgres', user='foalorm', password='foalorm', host='localhost', database='test_numbers')
+#db.bind('oracle', 'test_numbers/foalorm@localhost')
 
 db.drop_table("Numbers", if_exists=True, with_all_data=True)
 db.generate_mapping(create_tables=True)

@@ -28,7 +28,7 @@ class EntityStatusTestCase(object):
     def test_delete_updated(self):
         p = self.db.TestPost()
         self.make_flush(p)
-        p.name = 'Pony'
+        p.name = 'FoalORM'
         self.assertEqual(p._status_, 'modified')
         self.make_flush(p)
         self.assertEqual(p._status_, 'updated')

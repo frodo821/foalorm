@@ -260,14 +260,14 @@ class TestDBSession(unittest.TestCase):
         else:
             self.fail()
 
-    @raises_exception(PonyRuntimeWarning, '@db_session decorator with `retry=3` option is ignored for test() function '
+    @raises_exception(FoalORMRuntimeWarning, '@db_session decorator with `retry=3` option is ignored for test() function '
                                           'because it is called inside another db_session')
     def test_retry_11(self):
         @db_session(retry=3)
         def test():
             pass
         with warnings.catch_warnings():
-            warnings.simplefilter('error', PonyRuntimeWarning)
+            warnings.simplefilter('error', FoalORMRuntimeWarning)
             with db_session:
                 test()
 

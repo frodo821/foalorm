@@ -45,7 +45,7 @@ __all__ = [
     'TransactionError', 'ConnectionClosedError', 'TransactionIntegrityError', 'IsolationError',
     'CommitException', 'RollbackException', 'UnrepeatableReadError', 'OptimisticCheckError',
     'UnresolvableCyclicDependency', 'UnexpectedError', 'DatabaseSessionIsOver',
-    'PonyRuntimeWarning', 'DatabaseContainsIncorrectValue', 'DatabaseContainsIncorrectEmptyValue',
+    'FoalORMRuntimeWarning', 'DatabaseContainsIncorrectValue', 'DatabaseContainsIncorrectEmptyValue',
     'TranslationError', 'ExprEvalError', 'PermissionError',
 
     'Database', 'sql_debug', 'set_sql_debug', 'sql_debugging', 'show',
@@ -196,21 +196,21 @@ class ExprEvalError(TranslationError):
         TranslationError.__init__(exc, msg)
         exc.cause = cause
 
-class PonyInternalException(Exception):
+class FoalORMInternalException(Exception):
     pass
 
-class OptimizationFailed(PonyInternalException):
+class OptimizationFailed(FoalORMInternalException):
     pass  # Internal exception, cannot be encountered in user code
 
-class UseAnotherTranslator(PonyInternalException):
+class UseAnotherTranslator(FoalORMInternalException):
     def __init__(self, translator):
-        Exception.__init__(self, 'This exception should be caught internally by PonyORM')
+        Exception.__init__(self, 'This exception should be caught internally by FoalORM')
         self.translator = translator
 
-class PonyRuntimeWarning(RuntimeWarning):
+class FoalORMRuntimeWarning(RuntimeWarning):
     pass
 
-class DatabaseContainsIncorrectValue(PonyRuntimeWarning):
+class DatabaseContainsIncorrectValue(FoalORMRuntimeWarning):
     pass
 
 class DatabaseContainsIncorrectEmptyValue(DatabaseContainsIncorrectValue):
@@ -501,7 +501,7 @@ class DBSessionContextManager(object):
                     fname = func.__name__ + '()' if isinstance(func, types.FunctionType) else func
                     message = '@db_session decorator with `retry=%d` option is ignored for %s function ' \
                               'because it is called inside another db_session' % (db_session.retry, fname)
-                    warnings.warn(message, PonyRuntimeWarning, stacklevel=3)
+                    warnings.warn(message, FoalORMRuntimeWarning, stacklevel=3)
                 if db_session.sql_debug is None:
                     return func(*args, **kwargs)
                 local.push_debug_state(db_session.sql_debug, db_session.show_values)
@@ -779,11 +779,11 @@ class Database(object):
             if not isinstance(provider, str):
                 throw(TypeError, 'Provider name should be string. Got: %r' % type(provider).__name__)
             if provider == 'pygresql': throw(TypeError,
-                'Pony no longer supports PyGreSQL module. Please use psycopg2 instead.')
+                'FoalORM no longer supports PyGreSQL module. Please use psycopg2 instead.')
             self.provider_name = provider
             provider_module = import_module('foalorm.orm.dbproviders.' + provider)
             provider_cls = provider_module.provider_cls
-        kwargs['pony_call_on_connect'] = self.call_on_connect
+        kwargs['foalorm_call_on_connect'] = self.call_on_connect
         self.provider = provider_cls(self, *args, **kwargs)
     @property
     def last_sql(database):
@@ -4939,8 +4939,8 @@ class Entity(object, metaclass=EntityMeta):
             old_dbval = get_dbval(attr, NOT_LOADED)
             bit = obj._bits_except_volatile_[attr]
             if rbits & bit:
-                errormsg = 'Please contact PonyORM developers so they can ' \
-                           'reproduce your error and fix a bug: support@ponyorm.org'
+                errormsg = 'Please contact FoalORM developers so they can ' \
+                           'reproduce your error and fix a bug: me@frodo821.me'
                 assert old_dbval is not NOT_LOADED, errormsg
                 throw(UnrepeatableReadError,
                       'Value of %s.%s for %s was updated outside of current transaction (was: %r, now: %r)'

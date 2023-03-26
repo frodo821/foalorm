@@ -44,10 +44,10 @@ sql_debug(True)  # Output all SQL queries to stdout
 
 params = dict(
     sqlite=dict(provider='sqlite', filename='university1.sqlite', create_db=True),
-    mysql=dict(provider='mysql', host="localhost", user="pony", passwd="pony", db="pony"),
-    postgres=dict(provider='postgres', user='pony', password='pony', host='localhost', database='pony'),
-    cockroach=dict(provider='cockroach', user='root', host='localhost', port=26257, database='pony', sslmode='disable'),
-    oracle=dict(provider='oracle', user='c##pony', password='pony', dsn='localhost/orcl')
+    mysql=dict(provider='mysql', host="localhost", user="foalorm", passwd="foalorm", db="foalorm"),
+    postgres=dict(provider='postgres', user="foalorm", password="foalorm", host='localhost', database="foalorm"),
+    cockroach=dict(provider='cockroach', user='root', host='localhost', port=26257, database="foalorm", sslmode='disable'),
+    oracle=dict(provider='oracle', user='c##foalorm', password="foalorm", dsn='localhost/orcl')
 )
 db.bind(**params['sqlite'])
 

@@ -126,8 +126,8 @@ class TestDatabase(Database):
                 pass
         TestProvider.server_version = server_version
 
-        kwargs['pony_check_connection'] = False
-        kwargs['pony_pool_mockup'] = TestPool(self)
+        kwargs['foalorm_check_connection'] = False
+        kwargs['foalorm_pool_mockup'] = TestPool(self)
         Database.bind(self, TestProvider, *args, **kwargs)
     def _execute(database, sql, globals, locals, frame_depth):
         assert False  # pragma: no cover

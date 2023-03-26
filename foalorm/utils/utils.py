@@ -20,20 +20,20 @@ if foalorm.MODE.startswith('GAE-'): localbase = object
 else: from threading import local as localbase
 
 
-class PonyDeprecationWarning(DeprecationWarning):
+class FoalORMDeprecationWarning(DeprecationWarning):
     pass
 
 def deprecated(stacklevel, message):
-    warnings.warn(message, PonyDeprecationWarning, stacklevel)
+    warnings.warn(message, FoalORMDeprecationWarning, stacklevel)
 
-warnings.simplefilter('once', PonyDeprecationWarning)
+warnings.simplefilter('once', FoalORMDeprecationWarning)
 
 def _improved_decorator(caller, func):
     if isfunction(func):
         return _decorator(caller, func)
-    def pony_wrapper(*args, **kwargs):
+    def foalorm_wrapper(*args, **kwargs):
         return caller(func, *args, **kwargs)
-    return pony_wrapper
+    return foalorm_wrapper
 
 def decorator(caller, func=None):
     if func is not None:
@@ -61,21 +61,21 @@ def cut_traceback(func, *args, **kwargs):
     except Exception:
         exc_type, exc, tb = sys.exc_info()
         full_tb = tb
-        last_pony_tb = None
+        last_foalorm_tb = None
         try:
             while tb.tb_next:
                 module_name = tb.tb_frame.f_globals['__name__']
-                if module_name == 'pony' or (module_name is not None  # may be None during import
+                if module_name == 'foalorm' or (module_name is not None  # may be None during import
                                              and module_name.startswith('foalorm.')):
-                    last_pony_tb = tb
+                    last_foalorm_tb = tb
                 tb = tb.tb_next
-            if last_pony_tb is None: raise
+            if last_foalorm_tb is None: raise
             module_name = tb.tb_frame.f_globals.get('__name__') or ''
             if module_name.startswith('foalorm.utils') and tb.tb_frame.f_code.co_name == 'throw':
-                reraise(exc_type, exc, last_pony_tb)
+                reraise(exc_type, exc, last_foalorm_tb)
             reraise(exc_type, exc, full_tb)
         finally:
-            del exc, full_tb, tb, last_pony_tb
+            del exc, full_tb, tb, last_foalorm_tb
 
 cut_traceback_depth = 2
 
@@ -259,7 +259,7 @@ expr2_re = re.compile(r'''
 expr3_re = re.compile(r"""
         [()[\]]                   # parenthesis or braces (group 1)
     |   '''(?:[^\\]|\\.)*?'''     # '''triple-quoted string'''
-    |   \"""(?:[^\\]|\\.)*?\"""   # \"""triple-quoted string\"""
+    |   \"""(?:[^\\]|\\.)*?\"""   # "\""triple-quoted string"\""
     |   '(?:[^'\\]|\\.)*?'        # 'string'
     |   "(?:[^"\\]|\\.)*?"        # "string"
     """, re.VERBOSE)
@@ -430,7 +430,7 @@ def deref_proxy(value):
         # Flask local proxy
         value = value._get_current_object()
     elif t.__name__ == 'EntityProxy':
-        # Pony proxy
+        # FoalORM proxy
         value = value._get_object()
 
     return value

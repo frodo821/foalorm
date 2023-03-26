@@ -453,7 +453,7 @@ def create_extractors(code_key, tree, globals, locals, special_functions, const_
                 def extractor(globals, locals):
                     return locals['.0']
             else:
-                filename = '<pony ' + src + '>'
+                filename = '<foalorm ' + src + '>'
                 code = compile(src, filename, 'eval')
                 def extractor(globals, locals, code=code):
                     return eval(code, globals, locals)

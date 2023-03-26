@@ -4,7 +4,7 @@ from bottle import default_app, install, route, request, redirect, run, template
 
 # Import eStore model http://editor.ponyorm.com/user/pony/eStore
 from foalorm.orm.examples.estore import *
-from foalorm.orm.integration.bottle_plugin import PonyPlugin
+from foalorm.orm.integration.bottle_plugin import FoalORMPlugin
 
 # After the plugin is installed each request will be processed
 # in a separate database session. Once the HTTP request processing
@@ -12,7 +12,7 @@ from foalorm.orm.integration.bottle_plugin import PonyPlugin
 #  * commit the changes to the database (or rollback if an exception happened)
 #  * clear the transaction cache
 #  * return the database connection to the connection pool
-install(PonyPlugin())
+install(FoalORMPlugin())
 
 @route('/')
 @route('/products/')
@@ -79,12 +79,12 @@ def save_product(id):
     p.name = request.forms.get('name')
     p.price = request.forms.get('price')
     # We might put the commit() command here, but it is not necessary
-    # because PonyPlugin will take care of this.
+    # because FoalORMPlugin will take care of this.
     redirect("/products/%d/" % p.id)
     # The Bottle's redirect function raises the HTTPResponse exception.
-    # Normally PonyPlugin closes the session with rollback
+    # Normally FoalORMPlugin closes the session with rollback
     # if a callback function raises an exception. But in this case
-    # PonyPlugin understands that this exception is not the error
+    # FoalORMPlugin understands that this exception is not the error
     # and closes the session with commit.
 
 

@@ -103,9 +103,9 @@ class Classroom(db.Entity):
     lessons = Set(Lesson)
 
 db.bind('sqlite', 'university2.sqlite', create_db=True)
-#db.bind('mysql', host='localhost', user='pony', passwd='pony', db='university2')
-#db.bind('postgres', user='pony', password='pony', host='localhost', database='university2')
-#db.bind('oracle', 'university2/pony@localhost')
+#db.bind('mysql', host='localhost', user="foalorm", passwd="foalorm", db='university2')
+#db.bind('postgres', user="foalorm", password="foalorm", host='localhost', database='university2')
+#db.bind('oracle', 'university2/foalorm@localhost')
 
 db.generate_mapping(create_tables=True)
 
