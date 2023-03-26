@@ -1,9 +1,9 @@
 *.pyc
 *.sqlite
 .idea
-pony/orm/tests/.coverage
-pony/orm/tests/coverage.bat
-pony/orm/tests/htmlcov/*.*
+foalorm/orm/tests/.coverage
+foalorm/orm/tests/coverage.bat
+foalorm/orm/tests/htmlcov/*.*
 MANIFEST
 docs/_build/
-pony.egg-info/
+foalorm.egg-info/

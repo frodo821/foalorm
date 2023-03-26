@@ -7,55 +7,23 @@ import unittest
 
 def test_suite():
     test_loader = unittest.TestLoader()
-    test_suite = test_loader.discover('pony.orm.tests', pattern='test_*.py')
+    test_suite = test_loader.discover('foalorm.orm.tests', pattern='test_*.py')
     return test_suite
 
-name = "pony"
-version = __import__('pony').__version__
-description = "Pony Object-Relational Mapper"
+name = "foalorm"
+version = __import__('foalorm').__version__
+description = "Foal Object-Relational Mapper"
 long_description = """
 About
 =========
-Pony ORM is easy to use and powerful object-relational mapper for Python.
-Using Pony, developers can create and maintain database-oriented software applications
-faster and with less effort. One of the most interesting features of Pony is
-its ability to write queries to the database using generator expressions.
-Pony then analyzes the abstract syntax tree of a generator and translates it
-to its SQL equivalent.
-
-Following is an example of a query in Pony::
-
-    select(p for p in Product if p.name.startswith('A') and p.cost <= 1000)
-
-Such approach simplify the code and allows a programmer to concentrate
-on the business logic of the application.
-
-Pony translates queries to SQL using a specific database dialect.
-Currently Pony works with SQLite, MySQL, PostgreSQL and Oracle databases.
-
-The package `pony.orm.examples <https://github.com/ponyorm/pony/tree/orm/pony/orm/examples>`_
-contains several examples.
+FoalORM is an advanced object-relational mapper forked from PonyORM.
 
 Installation
 =================
 ::
 
-    pip install pony
+    pip install foalorm
 
-Entity-Relationship Diagram Editor
-=============================================
-`Pony online ER Diagram Editor <https://editor.ponyorm.com>`_ is a great tool for prototyping.
-You can draw your ER diagram online, generate  Pony entity declarations or SQL script for
-creating database schema based on the diagram and start working with the database in seconds.
-
-Pony ORM Links:
-=================
-- Main site: https://ponyorm.com
-- Documentation: https://docs.ponyorm.com
-- GitHub: https://github.com/ponyorm/pony
-- Mailing list:  http://ponyorm-list.ponyorm.com
-- ER Diagram Editor: https://editor.ponyorm.com
-- Blog: https://blog.ponyorm.com
 """
 
 classifiers = [
@@ -65,7 +33,6 @@ classifiers = [
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
@@ -76,35 +43,29 @@ classifiers = [
     'Topic :: Database'
 ]
 
-author = ', '.join([
-    'Alexander Kozlovsky <alexander.kozlovsky@gmail.com>',
-    'Alexey Malashkevich <alexey@ponyorm.org>',
-    'Alexander Tischenko <sashaaero@yandex.ru>'
-])
-author_email = "team@ponyorm.com"
-url = "https://ponyorm.com"
+author_email = "me@frodo821.me"
+author = f'frodo821 <{author_email}>'
 project_urls = {
-    "Documentation": "https://docs.ponyorm.org",
-    "Source": "https://github.com/ponyorm/pony",
+    "Source": "https://github.com/frodo821/foalorm",
 }
-licence = "Apache License Version 2.0"
+license = "MIT License"
 
 packages = [
-    "pony",
-    "pony.flask",
-    "pony.flask.example",
-    "pony.orm",
-    "pony.orm.dbproviders",
-    "pony.orm.examples",
-    "pony.orm.integration",
-    "pony.orm.tests",
-    "pony.thirdparty",
-    "pony.utils"
+    "foalorm",
+    "foalorm.flask",
+    "foalorm.flask.example",
+    "foalorm.orm",
+    "foalorm.orm.dbproviders",
+    "foalorm.orm.examples",
+    "foalorm.orm.integration",
+    "foalorm.orm.tests",
+    "foalorm.thirdparty",
+    "foalorm.utils"
 ]
 
 package_data = {
-    'pony.flask.example': ['templates/*.html'],
-    'pony.orm.tests': ['queries.txt']
+    'foalorm.flask.example': ['templates/*.html'],
+    'foalorm.orm.tests': ['queries.txt']
 }
 
 download_url = "http://pypi.python.org/pypi/pony/"
@@ -125,9 +86,8 @@ if __name__ == "__main__":
         classifiers=classifiers,
         author=author,
         author_email=author_email,
-        url=url,
         project_urls=project_urls,
-        license=licence,
+        license=license,
         packages=packages,
         package_data=package_data,
         download_url=download_url,
